@@ -1,12 +1,11 @@
 var tls = require('tls');
 var fs = require('fs');
 var port = 4001;
-
 var clients = [];
 
 var options = {
-	key: fs.readFileSync('server_key.pem'),
-	options: fs.readFileSync('server_cert.pem')
+	key: 	 fs.readFileSync('server_key.pem'),
+	fs: cert.readFileSync('server_cert.pem')
 };
 
 function distribute (from, data) {
@@ -16,10 +15,11 @@ function distribute (from, data) {
 			client.write(socket.remoteAddress + ':' + socket.remotePort +
 				' said: ' + data);
 		}
-	})
+	});
 }
 
 var server = tls.createServer(options, function (client) {
+	
 	clients.push(client);
 
 	client.on('data', function (data) {
@@ -33,5 +33,5 @@ var server = tls.createServer(options, function (client) {
 });
 
 server.listen(port, function() {
-	console.log('listening on port ', server.address().port);
+	console.log('listening on add: ', server.address().port);
 });

@@ -1,5 +1,5 @@
 var net = require('net');
-var port = 4000;
+var port = 4001;
 var conn;
 var retryInterval = 3000; // 3 seconds
 var retriedTimes = 0;

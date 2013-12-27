@@ -1,13 +1,13 @@
 var tls =  require('tls');
 var fs = require('fs');
 
-var port(4001);
+var port = 4001;
 
 var host = '0.0.0.0';
 
 var options = {
-	key: fs.readFileSync('client_key_pem');
-	cert: fs.readFileSync('client_cert.pem');
+	key: fs.readFileSync('client_key.pem'),
+	cert: fs.readFileSync('client_cert.pem')
 };
 
 process.stdin.resume();

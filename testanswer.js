@@ -4,7 +4,7 @@ var Stream = require('stream');
 var s = new Stream();
 s.pipe = function(dest) {
   dest.write(JSON.stringify({foo: 1}));
-  //console.log(JSON.stringify('{foo: 1}'));
+  console.log(JSON.stringify('{foo: 1}'));
   return dest;
 };
 

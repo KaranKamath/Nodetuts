@@ -19,16 +19,24 @@ server.on('connection', function (socket) {
 
 	var buffer = "";
 	socket.on('data', function(data) {
-		if(data.toString().charCodeAt(0) == 13) {
-			console.log('got data: ', buffer);
+		if(process.platform != "linux") {
+			console.log(data.toString() + " " + data.toString().charCodeAt(0));
+			if(data.toString().charCodeAt(0) == 13 || data.toString() == "\n" || data.toString() == "\n\r" || data.toString() == "\r"||data.toString() == "\r			\n") {
+				console.log('got data: ', buffer);
+				sockets.forEach(function(otherSocket) {
+					if(otherSocket !== socket) {
+						otherSocket.write('\n\rUser ' + sockets.indexOf(socket) + ': ' + buffer + '\n\r' + 'Me: ');
+					}
+				buffer = "";
+			} else {
+				buffer += data.toString();
+			}
+		} else {
 			sockets.forEach(function(otherSocket) {
 				if(otherSocket !== socket) {
-					otherSocket.write('\n\rUser ' + sockets.indexOf(socket) + ': ' + buffer + '\n\r' + 'Me: ');
+					otherSocket.write('\n\rUser ' + sockets.indexOf(socket) + ': ' + data +'\n\r' + 'Me: '); 
 				}
-			});
-			buffer = "";
-		} else {
-			buffer += data.toString();
+			}
 		}
 	});
 

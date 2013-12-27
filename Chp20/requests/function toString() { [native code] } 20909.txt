@@ -1,0 +1,19 @@
+PUT /hello_world_app.js
+{ 'user-agent': 'curl/7.22.0 (x86_64-pc-linux-gnu) libcurl/7.22.0 OpenSSL/1.0.1 zlib/1.2.3.4 libidn/1.23 librtmp/2.3',
+  host: 'localhost:8080',
+  accept: '*/*',
+  'content-length': '337',
+  expect: '100-continue' }
+var connect = require('connect');
+
+var saveRequest = require('./save_request');
+var writeHeader = require('./write_header');
+var replyText = require('./reply_text');
+
+var app = connect.createServer(
+    saveRequest(__dirname + '/requests'),
+    writeHeader('X-Powered-By', 'Node'),
+    replyText("Hello again!")
+    );
+
+app.listen(8080);
